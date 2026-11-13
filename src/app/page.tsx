@@ -32,24 +32,32 @@ export default async function HomePage() {
   const siteName = process.env.NEXT_PUBLIC_SITE_NAME || "Ay Işığı Kütüphanesi";
 
   return (
-    <div className="site-transparent min-h-screen bg-[var(--color-bg)]">
+    <div className="site-transparent min-h-screen">
       <SiteHeader />
       <WelcomeHero />
 
-      <main className="mx-auto max-w-6xl px-6 py-16 md:py-20">
-        <h2
-          className="mb-10 font-serif text-2xl text-[var(--color-text)] md:text-3xl"
-          style={{ fontFamily: "var(--font-literata), Literata, serif" }}
-        >
-          Kitaplar
-        </h2>
+      <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-16">
+        <div className="flex items-center justify-between mb-6 sm:mb-8">
+          <div>
+            <span className="section-label text-[10px] sm:text-xs">Koleksiyon</span>
+            <h2
+              className="font-serif text-2xl sm:text-3xl font-bold text-[var(--color-text)]"
+              style={{ fontFamily: "var(--font-literata), Literata, serif" }}
+            >
+              Kitaplar
+            </h2>
+          </div>
+          <span className="text-xs text-[var(--color-text-muted)] font-medium">
+            {books.length} Eser
+          </span>
+        </div>
 
         {books.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-[var(--color-border)] bg-[var(--color-surface)] p-12 text-center">
-            <p className="font-serif text-xl text-[var(--color-text)]">Henüz yayında kitap yok</p>
+          <div className="rounded-3xl border border-dashed border-[var(--color-border)] bg-[var(--glass-bg)] backdrop-blur-xl p-8 sm:p-12 text-center">
+            <p className="font-serif text-lg text-[var(--color-text)]">Henüz yayında kitap yok</p>
           </div>
         ) : (
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-2 gap-3.5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
             {books.map(({ book, chapterCount }) => (
               <BookCard
                 key={book.id}
@@ -63,15 +71,16 @@ export default async function HomePage() {
         )}
       </main>
 
-      <section className="site-transparent border-t border-[var(--color-border)] bg-[var(--color-surface)]">
-        <div className="mx-auto max-w-3xl px-6 py-16 md:py-20">
+      <section className="border-t border-[var(--color-border)]/50 bg-[var(--glass-bg)] backdrop-blur-xl my-6">
+        <div className="mx-auto max-w-3xl px-5 py-12 sm:px-6 sm:py-16">
+          <span className="section-label text-[10px] sm:text-xs">Yazar</span>
           <h2
-            className="mb-8 font-serif text-2xl text-[var(--color-text)] md:text-3xl"
+            className="mb-4 sm:mb-6 font-serif text-2xl sm:text-3xl font-bold text-[var(--color-text)]"
             style={{ fontFamily: "var(--font-literata), Literata, serif" }}
           >
             Hakkımda
           </h2>
-          <p className="text-base leading-relaxed text-[var(--color-text-muted)] md:text-lg">
+          <p className="text-sm sm:text-base leading-relaxed text-[var(--color-text-muted)]">
             {ABOUT_TEXT}
           </p>
         </div>
@@ -79,20 +88,21 @@ export default async function HomePage() {
 
       <CommentsSection />
 
-      <section className="border-t border-[var(--color-border)]">
-        <div className="mx-auto max-w-3xl px-6 py-16 text-center md:py-20">
+      <section className="border-t border-[var(--color-border)]/50">
+        <div className="mx-auto max-w-3xl px-5 py-12 text-center sm:py-16">
+          <span className="section-label text-[10px] sm:text-xs">Topluluk</span>
           <h2
-            className="mb-10 font-serif text-2xl text-[var(--color-text)] md:text-3xl"
+            className="mb-6 sm:mb-8 font-serif text-2xl sm:text-3xl font-bold text-[var(--color-text)]"
             style={{ fontFamily: "var(--font-literata), Literata, serif" }}
           >
-            İletişim
+            İletişim & Sosyal Medya
           </h2>
           <SocialLinks className="mx-auto max-w-xl" />
         </div>
       </section>
 
-      <footer className="border-t border-[var(--color-border)] py-8 text-center text-sm text-[var(--color-text-muted)]">
-        <p>{siteName}</p>
+      <footer className="border-t border-[var(--color-border)]/50 py-6 text-center text-xs text-[var(--color-text-muted)]">
+        <p>{siteName} &bull; Geceye Fısıldayan Sözler</p>
       </footer>
     </div>
   );

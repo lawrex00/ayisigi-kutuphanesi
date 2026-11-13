@@ -21,113 +21,102 @@ export function SiteMusicPlayer() {
 
   return (
     <div className="relative inline-block" ref={dropdownRef}>
-      {/* Sağ Üst Header Butonu */}
+      {/* Sağ Üst Header Butonu - Apple Glassmorphism */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 rounded-full border px-3.5 py-2 text-sm transition-all hover:scale-105 active:scale-95 shadow-sm"
+        className="flex items-center gap-1.5 sm:gap-2 rounded-full border px-2.5 sm:px-3.5 py-1.5 sm:py-2 text-xs sm:text-sm font-medium transition-all duration-300 hover:scale-[1.03] active:scale-95 shadow-sm backdrop-blur-md"
         style={{
           borderColor: isPlaying ? "var(--color-accent)" : "var(--color-border)",
-          backgroundColor: isPlaying ? "rgba(168, 85, 247, 0.12)" : "var(--color-surface)",
+          backgroundColor: isPlaying ? "rgba(168, 85, 247, 0.16)" : "var(--glass-bg)",
           color: isPlaying ? "var(--color-accent)" : "var(--color-text)",
+          boxShadow: isPlaying ? "0 0 16px rgba(168, 85, 247, 0.25)" : "none",
         }}
         title="Fon Müziği Seçimi ve Ses Ayarı"
         aria-label="Müzik Oynatıcı"
       >
         {/* Hareketli Müzik İkonu / Equalizer Çubukları */}
         {isPlaying ? (
-          <span className="flex items-end gap-[2.5px] h-4 w-4 justify-center" aria-hidden="true">
-            <span className="w-1 bg-[var(--color-accent)] rounded-full animate-bounce h-3" style={{ animationDuration: "0.8s" }}></span>
-            <span className="w-1 bg-[var(--color-accent)] rounded-full animate-bounce h-4" style={{ animationDuration: "1.1s", animationDelay: "0.2s" }}></span>
-            <span className="w-1 bg-[var(--color-accent)] rounded-full animate-bounce h-2" style={{ animationDuration: "0.7s", animationDelay: "0.4s" }}></span>
+          <span className="flex items-end gap-[2px] h-3.5 w-3.5 sm:h-4 sm:w-4 justify-center" aria-hidden="true">
+            <span className="w-0.5 sm:w-1 bg-[var(--color-accent)] rounded-full animate-bounce h-2.5 sm:h-3" style={{ animationDuration: "0.8s" }}></span>
+            <span className="w-0.5 sm:w-1 bg-[var(--color-accent)] rounded-full animate-bounce h-3.5 sm:h-4" style={{ animationDuration: "1.1s", animationDelay: "0.2s" }}></span>
+            <span className="w-0.5 sm:w-1 bg-[var(--color-accent)] rounded-full animate-bounce h-2 sm:h-2" style={{ animationDuration: "0.7s", animationDelay: "0.4s" }}></span>
           </span>
         ) : (
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M9 18V5l12-2v13" />
             <circle cx="6" cy="18" r="3" />
             <circle cx="18" cy="16" r="3" />
           </svg>
         )}
-        <span className="font-medium text-xs sm:text-sm tracking-wide">
-          {isPlaying ? "Müzik Açık" : "Müzik"}
+        <span className="tracking-wide">
+          {isPlaying ? "Çalıyor" : "Müzik"}
         </span>
       </button>
 
-      {/* Tıklandığında Hemen Butonun Altında Çıkan Şık Açılır Pencere */}
+      {/* Tıklandığında Çıkan Apple Frosted Glass Açılır Menü */}
       {isOpen && (
         <div
-          className="absolute right-0 top-full mt-2.5 w-72 sm:w-80 rounded-2xl p-4 shadow-2xl z-50 backdrop-blur-xl border transition-all animate-in fade-in zoom-in-95 duration-150"
+          className="fixed inset-x-4 top-16 sm:absolute sm:inset-x-auto sm:right-0 sm:top-full sm:mt-3 sm:w-80 rounded-3xl p-5 shadow-2xl z-50 backdrop-blur-2xl border transition-all animate-in fade-in zoom-in-95 duration-200"
           style={{
-            backgroundColor: "var(--color-surface)",
+            backgroundColor: "var(--glass-bg)",
             borderColor: "var(--color-border)",
             color: "var(--color-text)",
-            boxShadow: "0 20px 50px rgba(0,0,0,0.35), 0 0 25px rgba(168,85,247,0.15)",
+            boxShadow: "0 25px 60px -15px rgba(0,0,0,0.4), 0 0 30px rgba(168,85,247,0.18)",
           }}
         >
           {/* Üst Başlık & Oynat/Durdur Butonu */}
-          <div className="flex items-center justify-between pb-3 mb-3 border-b border-[var(--color-border)]">
-            <div className="flex items-center gap-2">
-              <span className="text-lg">🌙</span>
+          <div className="flex items-center justify-between pb-3.5 mb-3.5 border-b border-[var(--color-border)]">
+            <div className="flex items-center gap-2.5">
+              <span className="text-xl">🌙</span>
               <div>
-                <h4 className="font-serif text-sm font-semibold leading-tight text-[var(--color-text)]">
+                <h4 className="font-serif text-sm font-bold leading-tight text-[var(--color-text)]">
                   Okuma Ambiyansı
                 </h4>
                 <p className="text-[11px] text-[var(--color-text-muted)]">
-                  Sonsuz döngüde kesintisiz çalar
+                  Kesintisiz fon müziği
                 </p>
               </div>
             </div>
 
             <button
               onClick={togglePlay}
-              className="flex h-9 w-9 items-center justify-center rounded-full transition-transform active:scale-90 hover:opacity-90 shadow-md"
-              style={{
-                backgroundColor: "var(--color-accent)",
-                color: "var(--color-btn-text, #ffffff)",
-              }}
-              title={isPlaying ? "Durdur" : "Başlat"}
+              className="flex items-center justify-center w-9 h-9 rounded-full bg-[var(--color-accent)] text-white shadow-lg transition-transform hover:scale-110 active:scale-95"
+              title={isPlaying ? "Durdur" : "Oynat"}
             >
               {isPlaying ? (
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-                  <rect x="6" y="4" width="4" height="16" rx="1" />
-                  <rect x="14" y="4" width="4" height="16" rx="1" />
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                  <rect x="6" y="4" width="4" height="16" rx="1.5" />
+                  <rect x="14" y="4" width="4" height="16" rx="1.5" />
                 </svg>
               ) : (
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" className="ml-0.5">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" className="ml-0.5">
                   <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
               )}
             </button>
           </div>
 
-          {/* Şarkı Listesi */}
-          <div className="space-y-1.5 mb-3.5">
-            <label className="text-[11px] font-semibold tracking-wider uppercase text-[var(--color-text-muted)] px-1">
-              Melodi Seç
-            </label>
-            {TRACKS.map((t) => {
-              const active = t.id === currentTrack.id;
+          {/* Parça Listesi */}
+          <div className="space-y-2 mb-4">
+            {TRACKS.map((track) => {
+              const active = currentTrack.id === track.id;
               return (
                 <button
-                  key={t.id}
-                  onClick={() => playTrack(t)}
-                  className={`w-full text-left px-3 py-2 rounded-xl text-xs flex items-center justify-between transition-all ${
+                  key={track.id}
+                  onClick={() => playTrack(track)}
+                  className={`w-full flex items-center justify-between p-2.5 rounded-2xl text-left text-xs transition-all duration-200 border ${
                     active
-                      ? "border font-medium shadow-sm"
-                      : "hover:bg-[var(--color-border)]/40 text-[var(--color-text)] opacity-80 hover:opacity-100"
+                      ? "border-[var(--color-accent)] bg-[var(--color-accent)]/15 font-semibold text-[var(--color-accent)] shadow-sm"
+                      : "border-transparent hover:border-[var(--color-border)] hover:bg-white/5 text-[var(--color-text)]"
                   }`}
-                  style={{
-                    backgroundColor: active ? "rgba(168, 85, 247, 0.16)" : "transparent",
-                    borderColor: active ? "var(--color-accent)" : "transparent",
-                    color: active ? "var(--color-accent)" : "var(--color-text)",
-                  }}
                 >
-                  <div className="truncate pr-2">
-                    <div className="font-medium text-[13px]">{t.title}</div>
-                    <div className="text-[10px] opacity-75">{t.subtitle}</div>
+                  <div className="flex items-center gap-2.5 truncate">
+                    <span className="text-base">{track.icon}</span>
+                    <span className="truncate">{track.title}</span>
                   </div>
                   {active && isPlaying && (
-                    <span className="shrink-0 flex items-center gap-1 text-[var(--color-accent)]">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] animate-ping"></span>
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-[var(--color-accent)] text-white shrink-0">
+                      Çalıyor
                     </span>
                   )}
                 </button>
@@ -135,32 +124,12 @@ export function SiteMusicPlayer() {
             })}
           </div>
 
-          {/* Ses Seviyesi Ayarı (Volume Slider) */}
-          <div className="pt-2.5 border-t border-[var(--color-border)] flex items-center gap-2.5 text-xs text-[var(--color-text-muted)]">
-            <button
-              onClick={() => changeVolume(volume === 0 ? 0.5 : 0)}
-              className="hover:text-[var(--color-text)] transition-colors p-1"
-              title={volume === 0 ? "Sesi Aç" : "Sesi Kapat"}
-            >
-              {volume === 0 ? (
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
-                  <line x1="23" y1="9" x2="17" y2="15" />
-                  <line x1="17" y1="9" x2="23" y2="15" />
-                </svg>
-              ) : volume < 0.5 ? (
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
-                  <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
-                </svg>
-              ) : (
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
-                  <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" />
-                </svg>
-              )}
-            </button>
-
+          {/* Ses Seviyesi Slider */}
+          <div className="pt-2 border-t border-[var(--color-border)]">
+            <div className="flex items-center justify-between text-xs text-[var(--color-text-muted)] mb-1.5">
+              <span>Ses Düzeyi</span>
+              <span>%{Math.round(volume * 100)}</span>
+            </div>
             <input
               type="range"
               min="0"
@@ -168,12 +137,8 @@ export function SiteMusicPlayer() {
               step="0.01"
               value={volume}
               onChange={(e) => changeVolume(parseFloat(e.target.value))}
-              className="w-full accent-[var(--color-accent)] cursor-pointer h-1.5 rounded-lg bg-[var(--color-border)]"
-              aria-label="Ses Seviyesi"
+              className="w-full accent-[var(--color-accent)] cursor-pointer h-1.5 rounded-lg bg-[var(--color-border)] appearance-none"
             />
-            <span className="w-8 text-right font-mono text-[11px] tabular-nums">
-              {Math.round(volume * 100)}%
-            </span>
           </div>
         </div>
       )}
