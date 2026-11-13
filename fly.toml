@@ -1,0 +1,32 @@
+# Ay Işığı Kütüphanesi — Fly.io (Mac kapalıyken de 7/24)
+app = 'ayisigi-kutuphanesi'
+primary_region = 'ams'
+
+[build]
+  dockerfile = 'Dockerfile'
+
+[env]
+  NODE_ENV = 'production'
+  PORT = '3000'
+  HOSTNAME = '0.0.0.0'
+  SQLITE_PATH = '/app/data/wattpad.db'
+  NEXT_PUBLIC_SITE_NAME = 'Ay Işığı Kütüphanesi'
+  NEXT_PUBLIC_AUTHOR_NAME = 'Gozyasikullugu'
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = 'off'
+  auto_start_machines = true
+  min_machines_running = 1
+  processes = ['app']
+
+[[mounts]]
+  source = 'ayisigi_data'
+  destination = '/app/data'
+  initial_size = '1gb'
+
+[[vm]]
+  memory = '512mb'
+  cpu_kind = 'shared'
+  cpus = 1

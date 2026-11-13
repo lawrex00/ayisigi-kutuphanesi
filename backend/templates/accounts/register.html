@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Kayıt Ol — Ay Işığı{% endblock %}
+{% block content %}
+<h1>Kayıt Ol</h1>
+<p class="sub">Ay Işığı Kütüphanesi'ne hoş geldiniz.</p>
+
+{% if messages %}
+<ul class="messages">
+  {% for message in messages %}<li>{{ message }}</li>{% endfor %}
+</ul>
+{% endif %}
+
+<form method="post">
+  {% csrf_token %}
+  <label for="email">E-posta</label>
+  <input id="email" name="email" type="email" required autocomplete="email">
+
+  <label for="id_username">Kullanıcı adı</label>
+  {{ form.username }}
+
+  <label for="id_password1">Şifre</label>
+  {{ form.password1 }}
+
+  <label for="id_password2">Şifre (tekrar)</label>
+  {{ form.password2 }}
+
+  <button type="submit">Kayıt Ol</button>
+</form>
+
+<div class="divider">veya</div>
+<a class="btn btn-outline" href="{{ google_url }}">Google ile Kayıt Ol</a>
+
+<p class="links">Zaten hesabınız var mı? <a href="/giris/">Giriş yapın</a></p>
+{% endblock %}

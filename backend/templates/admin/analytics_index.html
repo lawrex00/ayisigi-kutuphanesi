@@ -1,0 +1,74 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:2rem;">
+  <div style="background:#1a1822;padding:1.25rem;border-radius:12px;border:1px solid #2d2a35;">
+    <div style="font-size:2rem;font-weight:bold;color:#c9a86c;">{{ registered_users }}</div>
+    <div style="color:#9a9288;">Kayıtlı kullanıcı</div>
+  </div>
+  <div style="background:#1a1822;padding:1.25rem;border-radius:12px;border:1px solid #2d2a35;">
+    <div style="font-size:2rem;font-weight:bold;color:#c9a86c;">{{ unique_readers }}</div>
+    <div style="color:#9a9288;">Kitap okuyan kişi</div>
+  </div>
+  <div style="background:#1a1822;padding:1.25rem;border-radius:12px;border:1px solid #2d2a35;">
+    <div style="font-size:2rem;font-weight:bold;color:#c9a86c;">{{ unique_completers }}</div>
+    <div style="color:#9a9288;">Sonuna kadar okuyan</div>
+  </div>
+  <div style="background:#1a1822;padding:1.25rem;border-radius:12px;border:1px solid #2d2a35;">
+    <div style="font-size:2rem;font-weight:bold;color:#c9a86c;">{{ total_reads }}</div>
+    <div style="color:#9a9288;">Toplam bölüm okuma</div>
+  </div>
+  <div style="background:#1a1822;padding:1.25rem;border-radius:12px;border:1px solid #2d2a35;">
+    <div style="font-size:2rem;font-weight:bold;color:#c9a86c;">{{ unique_visitors }}</div>
+    <div style="color:#9a9288;">Toplam ziyaretçi</div>
+  </div>
+  <div style="background:#1a1822;padding:1.25rem;border-radius:12px;border:1px solid #2d2a35;">
+    <div style="font-size:2rem;font-weight:bold;color:#c9a86c;">{{ today_visitors }}</div>
+    <div style="color:#9a9288;">Bugünkü ziyaretçi</div>
+  </div>
+  <div style="background:#1a1822;padding:1.25rem;border-radius:12px;border:1px solid #2d2a35;">
+    <div style="font-size:2rem;font-weight:bold;color:#c9a86c;">{{ published_books }}</div>
+    <div style="color:#9a9288;">Yayındaki kitap</div>
+  </div>
+  <div style="background:#1a1822;padding:1.25rem;border-radius:12px;border:1px solid #2d2a35;">
+    <div style="font-size:2rem;font-weight:bold;color:#c9a86c;">{{ pending_comments }}</div>
+    <div style="color:#9a9288;">Yanıtsız yorum</div>
+  </div>
+</div>
+
+<h2>Kitap bazında okuma</h2>
+<p style="color:#9a9288;margin-bottom:1rem;">
+  <strong>Okuyan:</strong> en az bir bölüm açan kişi sayısı.
+  <strong>Sonuna kadar:</strong> son bölümü okuyan kişi sayısı.
+</p>
+<table style="width:100%;border-collapse:collapse;margin-bottom:2rem;">
+  <thead>
+    <tr style="border-bottom:1px solid #2d2a35;text-align:left;">
+      <th style="padding:0.5rem;">Kitap</th>
+      <th style="padding:0.5rem;">Bölüm</th>
+      <th style="padding:0.5rem;">Okuyan</th>
+      <th style="padding:0.5rem;">Sonuna kadar</th>
+      <th style="padding:0.5rem;">Tamamlama</th>
+      <th style="padding:0.5rem;">Toplam okuma</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in book_stats %}
+    <tr style="border-bottom:1px solid #2d2a35;">
+      <td style="padding:0.5rem;">{{ row.title }}</td>
+      <td style="padding:0.5rem;">{{ row.chapters }}</td>
+      <td style="padding:0.5rem;">{{ row.readers }}</td>
+      <td style="padding:0.5rem;color:#c9a86c;font-weight:600;">{{ row.completers }}</td>
+      <td style="padding:0.5rem;">%{{ row.completion_rate }}</td>
+      <td style="padding:0.5rem;">{{ row.read_events }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="6" style="padding:0.5rem;color:#9a9288;">Henüz okuma kaydı yok.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<p style="margin-bottom:0.5rem;">
+  <a href="/yonetim/auth/user/" style="color:#c9a86c;">→ Tüm kayıtlı kullanıcıları listele</a>
+</p>
+<p><a href="/yonetim/kitap-yukle/" style="color:#c9a86c;">+ Yeni kitap yükle</a></p>
+{% endblock %}

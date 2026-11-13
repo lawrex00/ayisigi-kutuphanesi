@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Giriş Yap — Ay Işığı{% endblock %}
+{% block content %}
+<h1>Giriş Yap</h1>
+<p class="sub">Kitapları okumak için giriş yapın.</p>
+
+{% if messages %}
+<ul class="messages">
+  {% for message in messages %}<li>{{ message }}</li>{% endfor %}
+</ul>
+{% endif %}
+
+<form method="post">
+  {% csrf_token %}
+  <label for="email">E-posta</label>
+  <input id="email" name="email" type="email" required autocomplete="email">
+
+  <label for="password">Şifre</label>
+  <input id="password" name="password" type="password" required autocomplete="current-password">
+
+  <button type="submit">Giriş Yap</button>
+</form>
+
+<div class="divider">veya</div>
+<a class="btn btn-outline" href="{{ google_url }}">Google ile Giriş Yap</a>
+
+<p class="links">Hesabınız yok mu? <a href="/kayit/">Kayıt olun</a></p>
+<p class="links"><a href="{{ request.scheme }}://{{ request.get_host|default:'localhost:3000' }}">← Ana sayfaya dön</a></p>
+{% endblock %}

@@ -1,0 +1,53 @@
+services:
+  # PostgreSQL — production veya Docker ile geliştirme için
+  # Kullanmak için .env dosyasında DATABASE_URL ayarlayın
+  postgres:
+    image: postgres:16-alpine
+    container_name: wattpad-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: wattpad
+      POSTGRES_PASSWORD: wattpad
+      POSTGRES_DB: wattpad_okuma
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    profiles:
+      - postgres
+
+  # WattpadDownloader — Wattpad'ten EPUB indirme servisi
+  wattpad-downloader:
+    image: ghcr.io/theonlywayup/wattpaddownloader:latest
+    container_name: wattpad-downloader
+    restart: unless-stopped
+    ports:
+      - "5042:80"
+    environment:
+      - TZ=Europe/Istanbul
+
+  # Next.js uygulaması — tam Docker ortamı için
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: wattpad-okuma-app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - SQLITE_PATH=/app/data/wattpad.db
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-okuma2026}
+      - WATTPAD_DOWNLOADER_URL=http://wattpad-downloader:80
+      - NEXT_PUBLIC_SITE_NAME=${NEXT_PUBLIC_SITE_NAME:-Ay Işığı Kütüphanesi}
+      - NEXT_PUBLIC_AUTHOR_NAME=${NEXT_PUBLIC_AUTHOR_NAME:-Yazar}
+    volumes:
+      - app_data:/app/data
+    depends_on:
+      - wattpad-downloader
+    profiles:
+      - full
+
+volumes:
+  postgres_data:
+  app_data:

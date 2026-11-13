@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "Ay Işığı Wattpad Aktarıcı",
+  "version": "1.3.0",
+  "description": "Wattpad kitaplarını Ay Işığı Kütüphanesi sitesine aktarır ve senkronize eder",
+  "permissions": ["storage"],
+  "host_permissions": [
+    "https://www.wattpad.com/*",
+    "https://wattpad.com/*",
+    "http://localhost:3000/*",
+    "http://127.0.0.1:3000/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.wattpad.com/*", "https://wattpad.com/*"],
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_title": "Ay Işığı Aktarıcı",
+    "default_popup": "popup.html"
+  }
+}

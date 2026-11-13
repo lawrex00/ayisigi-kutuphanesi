@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Kitap Yükle — Yönetim{% endblock %}
+{% block content %}
+<h1>Kitap Yükle</h1>
+<p class="sub">Yeni kitap ekleyin veya kapak ile özet güncelleyin.</p>
+
+{% if messages %}
+<ul class="messages">
+  {% for message in messages %}
+  <li style="{% if message.tags == 'success' %}background:#1a3020;color:#8fd49a;{% endif %}">{{ message }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {% for field in form %}
+  <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+  {{ field }}
+  {% if field.errors %}<div style="color:#e07070;margin-bottom:0.75rem;">{{ field.errors }}</div>{% endif %}
+  {% endfor %}
+  <button type="submit">Kaydet</button>
+</form>
+
+<p class="links"><a href="/yonetim/">← Yönetim paneline dön</a></p>
+{% endblock %}

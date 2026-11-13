@@ -1,0 +1,16 @@
+name = "ayisigi-kutuphanesi"
+compatibility_date = "2024-01-01"
+pages_build_output_dir = ".vercel/output/static"
+
+# Cloudflare Pages + D1 için ileride:
+# [[d1_databases]]
+# binding = "DB"
+# database_name = "ayisigi"
+# database_id = "YOUR_D1_ID"
+
+# Site tek API üzerinden çalışır — ayrı Django backend gerekmez.
+# Yerel: npm run dev
+# Cloudflare: npx @cloudflare/next-on-pages veya OpenNext adapter
+
+[vars]
+NEXT_PUBLIC_SITE_NAME = "Ay Işığı Kütüphanesi"
