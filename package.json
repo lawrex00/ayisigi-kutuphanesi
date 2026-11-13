@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build && npm run build:standalone",
     "build:standalone": "cp -r public .next/standalone/ && cp -r .next/static .next/standalone/.next/static",
-    "start": "node .next/standalone/server.js",
+    "start": "HOSTNAME=0.0.0.0 node .next/standalone/server.js",
     "lint": "next lint",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
