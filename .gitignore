@@ -33,11 +33,10 @@ yarn-error.log*
 .env
 .env*.local
 
-# database
-/data/*.db
+# database temp files
 /data/*.db-journal
-/data/uploads/*
-!data/uploads/.gitkeep
+/data/*.db-shm
+/data/*.db-wal
 
 # typescript
 *.tsbuildinfo
